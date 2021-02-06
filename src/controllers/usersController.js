@@ -1,19 +1,22 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const uuid = require('uuid');
-//const User = require('../models/User');
-//const Session = require('../models/Session');
-const { NotFoundError, WrongPasswordError } = require('../errors');
+const User = require('../models/User');
+const Session = require('../models/Session');
+const { NotFoundError, WrongPasswordError, ConflictError } = require('../errors');
 
 class UsersController {
-  async create({
+  async createUser({
     name, password, email, role
   }) {
+    const findUser = await this.findByEmail(email);
+    if (findUser) throw new ConflictError('E-mail already registered');
+
     password = bcrypt.hashSync(password, 10);
+
     const user = await User.create({
       name, email, password, role
-    }, { returning: true, raw: true });
-    delete user.dataValues.password;
+    });
     return user;
   }
 
@@ -35,7 +38,6 @@ class UsersController {
 
     return {
       userId: user.id,
-      name: user.name,
       token,
     };
   }

@@ -3,14 +3,14 @@ const usersController = require('../controllers/usersController');
 const registerSchema = require('../schemas/registerSchema');
 const signInSchema = require('../schemas/signInSchema');
 const userDataSchema = require('../schemas/userDataSchema');
-const verifyJwt = require('../../midllewares/validation');
+const verifyJwt = require('../../src/middlewares/validation');
 router
   .post('/sign-up', async (req, res) => {
     const { error } = registerSchema.validate(req.body);
     if (error) return res.status(422).send({ error: error.details[0].message });
     if (await usersController.findByEmail(req.body.email)) return res.status(409).send({ error: 'Email already in use' });
 
-    const user = await usersController.create(req.body);
+    const user = await usersController.createUser(req.body);
     return res.status(201).send(user);
   });
 
