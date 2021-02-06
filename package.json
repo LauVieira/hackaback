@@ -1,0 +1,37 @@
+{
+  "name": "hackaback",
+  "version": "1.0.0",
+  "description": "",
+  "main": "jest.config.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "jest --runInBand",
+    "dev": "npx nodemon src/server.js",
+    "migrations": "npx sequelize-cli db:migrate",
+    "seeds": "npx sequelize-cli db:seed:all",
+    "start": "node src/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "eslint": "^7.19.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "jest": "^26.6.3",
+    "joi": "^17.3.0",
+    "nodemon": "^2.0.7",
+    "pg": "^8.5.1",
+    "sequelize": "^6.5.0",
+    "sequelize-cli": "^6.2.0",
+    "string-strip-html": "^8.1.0",
+    "supertest": "^6.1.3"
+  }
+}
