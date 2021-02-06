@@ -15,6 +15,10 @@ Session.init(
       type: Sequelize.STRING,
       allowNull: false
     },
+    userId: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
     createdAt: {
       type: Sequelize.DATE,
       allowNull: false
