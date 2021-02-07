@@ -8,7 +8,9 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/:id/users', async (req, res) => {
-  res.status(200).send('Teste');
+  const id = parseInt(req.params.id);
+  const usersByCareer = await careersController.getAllUsersByCareer(id);
+  res.status(200).send(usersByCareer);
 });
 
 module.exports = router;
