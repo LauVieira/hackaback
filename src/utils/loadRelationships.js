@@ -4,9 +4,10 @@ const Session = require('../models/Session');
 const User = require('../models/User');
 const UserData = require('../models/UserData');
 
-User.belongsToMany(Career, { through: CareerUser });
-Career.belongsToMany(User, { through: CareerUser });
+//User.belongsToMany(Career, { through: CareerUser });
+//Career.belongsToMany(User, { through: CareerUser });
 
-User.hasMany(UserData);
+UserData.belongsTo(User);
+
 User.hasMany(Session);
 Session.belongsTo(User);
