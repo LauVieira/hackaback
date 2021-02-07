@@ -5,6 +5,7 @@ const express = require('express');
 const cors = require('cors');
 const careersRouter = require('../src/routers/careersRouter');
 const usersRouter = require('../src/routers/usersRouter');
+const { NotFoundError, WrongPasswordError } = require('../src/errors');
 
 const app = express();
 
@@ -17,7 +18,9 @@ app.use('/career', careersRouter);
 /* eslint-disable-next-line no-unused-vars */
 app.use((error, req, res, next) => {
   console.error(error);
-  return res.sendStatus(500);
+  if (error instanceof NotFoundError) return res.status(404).send(error.message);
+  else if (error instanceof WrongPasswordError) return res.status(401).send(error.message);
+  res.status(500).json(error);
 });
 
 module.exports = app;

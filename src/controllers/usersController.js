@@ -4,7 +4,7 @@ const { v4: uuidv4 } = require('uuid');
 const User = require('../models/User');
 const UserData = require('../models/UserData');
 const Session = require('../models/Session');
-const { NotFoundError, WrongPasswordError, ConflictError } = require('../errors');
+const { NotFoundError, WrongPasswordError } = require('../errors');
 
 class UsersController {
   async createUser({
@@ -35,9 +35,9 @@ class UsersController {
     const token = jwt.sign({ id: DbUser.id }, process.env.SECRET);
     await Session.create({ userId: DbUser.id, token });
 
-    const user = { 
-      id: DbUser.id, 
-      name: DbUser.name, 
+    const user = {
+      id: DbUser.id,
+      name: DbUser.name,
       email: DbUser.email,
       role: DbUser.role
     };
