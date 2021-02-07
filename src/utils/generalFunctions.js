@@ -1,4 +1,4 @@
-const stripHtml = require('string-strip-html');
+const { stripHtml } = require('string-strip-html');
 
 function sanitiseObj (obj) {
     if (obj === null || typeof(obj) !== 'object') return null;
@@ -21,4 +21,3 @@ function sanitiseObj (obj) {
 }
 
 module.exports = { sanitiseObj };
-

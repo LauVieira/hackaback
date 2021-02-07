@@ -1,18 +1,18 @@
 require('express-async-errors');
 require('dotenv').config();
 require('./utils/loadRelationships');
-
 const express = require('express');
 const cors = require('cors');
+const careersRouter = require('../src/routers/careersRouter');
+const usersRouter = require('../src/routers/usersRouter');
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-const usersRouter = require('../src/routers/usersRouter');
-
 app.use('/user', usersRouter);
+app.use('/career', careersRouter);
 
 /* eslint-disable-next-line no-unused-vars */
 app.use((error, req, res, next) => {

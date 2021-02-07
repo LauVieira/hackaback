@@ -9,5 +9,4 @@ module.exports = joi.object({
   photo: joi.string().uri().required(),
   website: joi.string().uri().required(),
   contactEmail: joi.string().email().required(),
-
 });
