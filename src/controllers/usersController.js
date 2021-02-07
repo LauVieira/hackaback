@@ -23,20 +23,27 @@ class UsersController {
   }
 
   async createSession(email, password) {
-    const user = await this.findByEmail(email);
-    if (!user) throw new NotFoundError('User not found');
+    const DbUser = await this.findByEmail(email);
+    if (!DbUser) throw new NotFoundError('User not found');
 
-    const passwordComparison = bcrypt.compareSync(password, user.password);
+    const passwordComparison = bcrypt.compareSync(password, DbUser.password);
 
     if (!passwordComparison) {
       throw new WrongPasswordError('Password is incorrect');
     }
 
-    const token = jwt.sign({ id: user.id }, process.env.SECRET);
-    await Session.create({ userId: user.id, token });
+    const token = jwt.sign({ id: DbUser.id }, process.env.SECRET);
+    await Session.create({ userId: DbUser.id, token });
+
+    const user = { 
+      id: DbUser.id, 
+      name: DbUser.name, 
+      email: DbUser.email,
+      role: DbUser.role
+    };
 
     return {
-      userId: user.id,
+      user,
       token,
     };
   }
