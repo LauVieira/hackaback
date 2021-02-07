@@ -1,4 +1,4 @@
-const dotenv = require("dotenv");
+const dotenv = require('dotenv');
 dotenv.config();
 
 module.exports = {
@@ -8,4 +8,7 @@ module.exports = {
   test: {
     url: process.env.DATABASE_URL,
   },
+  production: {
+    url: process.env.DATABASE_URL,
+  }
 };
