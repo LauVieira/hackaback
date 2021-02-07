@@ -58,9 +58,9 @@ class UsersController {
     const inviteCode = uuidv4();
 
     const career = await Career.findOne({ where: { title } });
-    const { careerId } = career;
+    const { id } = career;
 
-    await CareerUser.create({ careerId, userId });
+    await CareerUser.create({ careerId: id, userId });
 
     const userData = await UserData.create({
       description, userId, level, linkedin, topics, photo, website, inviteCode, contactEmail
