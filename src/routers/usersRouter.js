@@ -38,7 +38,7 @@ router
 
 router.post('/sign-out', verifyJwt, async (req, res) => {
   await usersController.userSignOut(req.userId);
-  res.status(204);
+  res.sendStatus(204);
 });
 
 module.exports = router;
