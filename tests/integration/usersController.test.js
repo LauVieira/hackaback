@@ -38,11 +38,11 @@ afterAll(async () => {
 describe('POST user/sign-up', () => {
   it('createUser - Should return an object with created User.', async () => {
     const body = {
-      'name': 'Pedrão Barros',
-      'email': 'barrospedrao@gmail.com',
-      'password': 'password',
-      'passwordConfirmation': 'password',
-      'role': 'mentored'
+      name: 'Pedrão Barros',
+      email: 'barrospedrao@gmail.com',
+      password: 'password',
+      passwordConfirmation: 'password',
+      role: 'mentored'
     };
 
     const response = await agent

@@ -21,4 +21,3 @@ function sanitiseObj (obj) {
 }
 
 module.exports = { sanitiseObj };
-

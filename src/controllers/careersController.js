@@ -1,20 +1,13 @@
 /* eslint-disable class-methods-use-this */
 
 const Career = require('../models/Career');
+const CareerUser = require('../models/CareerUser');
+const User = require('../models/User');
+const UserData = require('../models/UserData');
 
 class CareerController {
-  getCareers () {
+  getAll () {
     return Career.findAll();
-  }
-
-  getByCareerId (id) {
-    return Career.findAll({
-      where: { id },
-      include: [
-        { model: User }, // load all pictures
-        
-      ]
-    });
   }
 }
 
