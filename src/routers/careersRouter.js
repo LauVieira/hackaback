@@ -7,4 +7,10 @@ router.get('/careers', async (req, res) => {
   res.status(200).send(careersList);
 });
 
+router.get('/careers/:id/users', async (req, res) => {
+  const { id } = req.params;
+  const usersList = await careersController.getByCareerId(id);
+  res.status(200).send(careersList);
+});
+
 module.exports = router;

@@ -7,5 +7,4 @@ module.exports = joi.object({
   topic: joi.string().required(),
   photo: joi.string().uri().required(),
   website: joi.string().uri().required(),
-
 });

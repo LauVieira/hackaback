@@ -11,6 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/user', usersRouter);
+app.use('/career', usersRouter);
 
 app.use((error, req, res, next) => {
   console.error(error);

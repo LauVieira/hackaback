@@ -48,12 +48,15 @@ describe('POST user/sign-up', () => {
 
 describe('POST user/sign-in', () => {
   it('createSession - Should return a throw error trying to create a session that user not exists.', async () => {
+    const email = 'barrospedrao@gmail.com';
+    const password = 'password';
+    
     const User = require('../../src/models/User');
 
     User.findOne.mockResolvedValue(null);
 
     async function session() {
-      return await usersController.createUser(dataUser);
+      return await usersController.createSession(email, password);
     }
 
     expect(session).rejects.toThrow(NotFoundError);
