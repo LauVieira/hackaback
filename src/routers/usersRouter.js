@@ -28,12 +28,13 @@ router
 
 router
   .post('/profile', verifyJwt, async (req, res) => {
-    const { error } = userDataSchema.validate(req.body);
+    const { userData, title } = req.body;
+    const { error } = userDataSchema.validate(userData);
     if (error) return res.status(422).send({ error: error.details[0].message });
 
-    const userData = await usersController.createUserData(req.body);
+    const data = await usersController.createUserData(userData, title);
 
-    res.status(201).send(userData);
+    res.status(201).send(data);
   });
 
 router.post('/sign-out', verifyJwt, async (req, res) => {

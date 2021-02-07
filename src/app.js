@@ -5,7 +5,7 @@ const express = require('express');
 const cors = require('cors');
 const careersRouter = require('../src/routers/careersRouter');
 const usersRouter = require('../src/routers/usersRouter');
-const { NotFoundError, WrongPasswordError } = require('../src/errors');
+const { NotFoundError, WrongPasswordError } = require('../src/errors/index');
 
 const app = express();
 
@@ -20,7 +20,7 @@ app.use((error, req, res, next) => {
   console.error(error);
   if (error instanceof NotFoundError) return res.status(404).send(error.message);
   else if (error instanceof WrongPasswordError) return res.status(401).send(error.message);
-  res.status(500).json(error);
+  else res.status(500).json(error.message);
 });
 
 module.exports = app;
