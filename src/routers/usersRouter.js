@@ -21,7 +21,8 @@ router
     const { email, password } = req.body;
 
     const session = await usersController.createSession(email, password);
-
+    session.user.profileFilled = usersController.findUserData(session.user.id);
+    
     res.status(201).send(session);
   });
 

@@ -48,6 +48,10 @@ class UsersController {
     };
   }
 
+  async findUserData(userId) {
+    return User.findOne({ where: { userId } });
+  }
+
   async createUserData(body) {
     const { userId, description, level, linkedin, topics, photo, website, contactEmail } = body;
 
