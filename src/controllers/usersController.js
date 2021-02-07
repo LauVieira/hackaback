@@ -44,7 +44,7 @@ class UsersController {
 
     return {
       user,
-      token,
+      token
     };
   }
 
