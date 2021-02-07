@@ -1,0 +1,13 @@
+const Career = require('../models/Career');
+const CareerUser = require('../models/User');
+const Session = require('../models/Session');
+const User = require('../models/User');
+const UserData = require('../models/UserData');
+
+//User.belongsToMany(Career, { through: CareerUser });
+//Career.belongsToMany(User, { through: CareerUser });
+
+UserData.belongsTo(User);
+
+User.hasMany(Session);
+Session.belongsTo(User);

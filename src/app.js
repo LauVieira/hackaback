@@ -1,6 +1,6 @@
 require('express-async-errors');
 require('dotenv').config();
-// require('./utils/loadRelationships');
+require('./utils/loadRelationships');
 
 const express = require('express');
 const cors = require('cors');
@@ -14,6 +14,7 @@ const usersRouter = require('../src/routers/usersRouter');
 
 app.use('/user', usersRouter);
 
+/* eslint-disable-next-line no-unused-vars */
 app.use((error, req, res, next) => {
   console.error(error);
   return res.sendStatus(500);

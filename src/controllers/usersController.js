@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const uuid = require('uuid');
+const { v4: uuidv4 } = require('uuid');
 const User = require('../models/User');
+const UserData = require('../models/UserData');
 const Session = require('../models/Session');
 const { NotFoundError, WrongPasswordError, ConflictError } = require('../errors');
 
@@ -9,9 +10,6 @@ class UsersController {
   async createUser({
     name, password, email, role
   }) {
-    const findUser = await this.findByEmail(email);
-    if (findUser) throw new ConflictError('E-mail already registered');
-
     password = bcrypt.hashSync(password, 10);
 
     const user = await User.create({
@@ -29,6 +27,7 @@ class UsersController {
     if (!user) throw new NotFoundError('User not found');
 
     const passwordComparison = bcrypt.compareSync(password, user.password);
+
     if (!passwordComparison) {
       throw new WrongPasswordError('Password is incorrect');
     }
@@ -42,16 +41,15 @@ class UsersController {
     };
   }
 
-  async createUserData({
-    id, description, level, linkedin, topic, photo, website,
-  }) {
-    const user = User.findOne({ where: { id } });
-    if (!user) throw new NotFoundError('User not found');
+  async createUserData(body) {
+    const { userId, description, level, linkedin, topics, photo, website, contactEmail } = body;
 
-    const inviteCode = uuid();
+    const user = await User.findOne({ where: { id: userId } });
+    if (!user) throw new NotFoundError('User not found');
+    const inviteCode = uuidv4();
 
     const userData = await UserData.create({
-      description, userId: user.id, level, linkedin, topic, photo, website, inviteCode
+      description, userId, level, linkedin, topics, photo, website, inviteCode, contactEmail
     });
 
     return userData;

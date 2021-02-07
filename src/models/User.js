@@ -27,9 +27,11 @@ User.init({
     type: Sequelize.STRING(),
     allowNull: false,
   },
-}, {
-  sequelize,
-  modelName: 'user',
-});
+}, 
+  {
+    sequelize,
+    modelName: 'user',
+  }
+);
 
 module.exports = User;

@@ -1,9 +1,9 @@
 const { Sequelize } = require('sequelize');
 const sequelize = require('../utils/database');
 
-class Session extends Sequelize.Model { }
+class Career extends Sequelize.Model { }
 
-Session.init(
+Career.init(
   {
     id: {
       type: Sequelize.INTEGER,
@@ -11,19 +11,16 @@ Session.init(
       allowNull: false,
       autoIncrement: true,
     },
-    token: {
+    title: {
       type: Sequelize.STRING,
-      allowNull: false
-    },
-    userId: {
-      type: Sequelize.INTEGER,
       allowNull: false,
     },
   },
   {
     sequelize,
-    modelName: 'session'
+    timestamps: false,
+    modelName: 'career'
   }
 );
 
-module.exports = Session;
+module.exports = Career;

@@ -18,8 +18,8 @@ router
   .post('/sign-in', async (req, res) => {
     const { error } = signInSchema.validate(req.body);
     if (error) return res.status(422).send({ error: error.details[0].message });
-
     const { email, password } = req.body;
+
     const session = await usersController.createSession(email, password);
 
     res.status(201).send(session);
@@ -30,8 +30,7 @@ router
     const { error } = userDataSchema.validate(req.body);
     if (error) return res.status(422).send({ error: error.details[0].message });
 
-    const { userId, description, level, linkedin, topic, photo, website } = req.body;
-    const userData = await usersController.createUserData(userId, description, level, linkedin, topic, photo, website);
+    const userData = await usersController.createUserData(req.body);
 
     res.status(201).send(userData);
   });

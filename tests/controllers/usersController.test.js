@@ -53,7 +53,7 @@ describe('POST user/sign-in', () => {
     User.findOne.mockResolvedValue(null);
 
     async function session() {
-      return await usersController.createUser(dataUser);
+      return await usersController.createSession(dataUser);
     }
 
     expect(session).rejects.toThrow(NotFoundError);
