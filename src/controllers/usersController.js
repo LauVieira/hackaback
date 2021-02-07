@@ -4,6 +4,8 @@ const { v4: uuidv4 } = require('uuid');
 const User = require('../models/User');
 const UserData = require('../models/UserData');
 const Session = require('../models/Session');
+const CareerUser = require('../models/CareerUser');
+const Career = require('../models/Career');
 const { NotFoundError, WrongPasswordError } = require('../errors');
 
 class UsersController {
@@ -48,12 +50,17 @@ class UsersController {
     };
   }
 
-  async createUserData(body) {
-    const { userId, description, level, linkedin, topics, photo, website, contactEmail } = body;
+  async createUserData({ data, title }) {
+    const { userId, description, level, linkedin, topics, photo, website, contactEmail } = data;
 
     const user = await User.findOne({ where: { id: userId } });
     if (!user) throw new NotFoundError('User not found');
     const inviteCode = uuidv4();
+
+    const career = await Career.findOne({ where: { title } });
+    const { careerId } = career;
+
+    await CareerUser.create({ careerId, userId });
 
     const userData = await UserData.create({
       description, userId, level, linkedin, topics, photo, website, inviteCode, contactEmail

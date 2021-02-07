@@ -26,6 +26,7 @@ jest.mock('bcrypt', () => ({
 }));
 
 beforeAll(async () => {
+  await db.query('DELETE FROM "careerUsers" ');
   await db.query('DELETE FROM "userData"');
   await db.query('DELETE FROM sessions');
   await db.query('DELETE FROM users');
@@ -80,8 +81,13 @@ describe('POST user/sign-in', () => {
     expect(response.status).toBe(201);
     expect(response.body).toEqual(
       expect.objectContaining({
-        userId: expect.any(Number),
-        token: 'token'
+        token: 'token',
+        user: expect.objectContaining({
+          email: 'paola@paola.com',
+          id: 2,
+          name: 'Paola',
+          role: 'mentored'
+        })
 
       }),
     );
@@ -91,15 +97,6 @@ describe('POST user/sign-in', () => {
 describe('POST user/profile', () => {
   it('createUserData - Should return an object with created user profile.', async () => {
     await createUserDb(db, 'Laura Gurgel', 'laura@imail.com', '12345', 'mentored');
-
-    const bodySignIn = {
-      email: 'laura@imail.com',
-      password: '12345',
-    };
-
-    const signIn = await agent
-      .post('/user/sign-in')
-      .send(bodySignIn);
 
     const body = {
       userId: 3,
@@ -114,7 +111,7 @@ describe('POST user/profile', () => {
 
     const response = await agent
       .post('user/profile')
-      .set('Authorization', `Bearer ${signIn.token}`)
+      .set('Authorization', `Bearer ${token}`)
       .send(body);
 
     console.log(response);
