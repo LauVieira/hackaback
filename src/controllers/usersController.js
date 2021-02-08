@@ -51,7 +51,7 @@ class UsersController {
   }
 
   async findUserData(userId) {
-    return User.findOne({ where: { userId } });
+    return UserData.findOne({ where: { userId } });
   }
 
   async createUserData({ data, title }) {
