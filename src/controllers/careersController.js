@@ -14,7 +14,7 @@ class CareerController {
     //buscar todos os usersData de uma categoria
     return await User.findAll({
       attributes: {
-        exclude: ['createdAt', 'updatedAt',]
+        exclude: ['password', 'createdAt', 'updatedAt',]
       },
 
       include: [{
